@@ -8,7 +8,7 @@ step = cmap (\x -> if x > 0 then 1.0 else 0)
 sigmoid::Matrix R -> Matrix R 
 sigmoid = cmap (\x -> 1.0 / (1.0 + exp (-x)))
 
-xcoords::Double -> Double -> [Double]
+xcoords::R -> R -> [R]
 xcoords mini maxi= linearScale 1000 (mini, maxi)
 
 toPoints::(Matrix R -> Matrix R) -> [R] -> [(R, R)]
@@ -48,7 +48,7 @@ forward network x = let
     b1 = network M.! _b1      
     b2 = network M.! _b2      
     b3 = network M.! _b3
-    signal = convert w2 b2 . convert w1 b1  
+    signal     = convert w2 b2 . convert w1 b1  
     activate x = id $ x <> w3 + b3
  in
     activate $ signal x 
@@ -56,6 +56,6 @@ forward network x = let
 softmax::Matrix R -> Matrix R
 softmax a = cmap (\x -> x/sumExpA) expA  
  where
-    c = maxElement a
-    expA = cmap exp $ cmap (\x -> x-c) a
+    c       = maxElement a
+    expA    = cmap exp $ cmap (\x -> x-c) a
     sumExpA = sum $ head $ toLists expA 

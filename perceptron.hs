@@ -1,6 +1,6 @@
 import Numeric.LinearAlgebra
 
-op::(Double, Double) -> Double -> Double -> Double -> Int 
+op::(R, R) -> R -> R -> R -> Int 
 op ws b x1 x2 = case (sumElements (x * w) + b) > 0 of
     True -> 1
     _    -> 0
